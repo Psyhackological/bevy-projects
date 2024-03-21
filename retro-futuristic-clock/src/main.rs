@@ -9,10 +9,11 @@ fn main() {
         .run();
 }
 
-fn setup(mut commands: Commands, mut gizmo_conf: ResMut<GizmoConfig>) {
+fn setup(mut commands: Commands, mut config_store: ResMut<GizmoConfigStore>) {
     commands.spawn(Camera2dBundle::default());
 
-    gizmo_conf.line_width = 20.0;
+    let (default_config, _) = config_store.config_mut::<DefaultGizmoConfigGroup>();
+    default_config.line_width = 20.0;
 }
 
 fn clock_face(mut gizmos: Gizmos) {
