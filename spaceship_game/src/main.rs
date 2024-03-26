@@ -1,9 +1,11 @@
+mod asset_loader;
 mod asteroids;
 mod camera;
 mod debug;
 mod movement;
 mod spaceship;
 
+use asset_loader::AssetLoaderPlugin;
 use asteroids::AsteroidPlugin;
 use bevy::prelude::*;
 use camera::CameraPlugin;
@@ -21,6 +23,7 @@ fn main() {
         })
         .add_plugins(DefaultPlugins)
         // User defined plugins.
+        .add_plugins(AssetLoaderPlugin)
         .add_plugins(MovementPlugin)
         .add_plugins(DebugPlugin)
         .add_plugins(SpaceshipPlugin)
