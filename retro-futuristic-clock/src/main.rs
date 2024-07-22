@@ -23,40 +23,40 @@ fn clock_face(mut gizmos: Gizmos) {
     let minute = now.minute() as f32;
     let hour = now.hour() as f32;
 
-    let second_angle = (360.0 / 60.0) * second;
-    let minute_angle = (360.0 / 60.0) * minute;
-    let hour_angle: f32 = (360.0 / 12.0) * (hour % 12.);
+    let second_angle = -(360.0 / 60.0) * second;
+    let minute_angle = -(360.0 / 60.0) * minute;
+    let hour_angle: f32 = -(360.0 / 12.0) * (hour % 12.);
 
-    // seconds
+    // Seconds
     gizmos
         .arc_2d(
             Vec2::ZERO,
             second_angle.to_radians() / 2.0,
             second_angle.to_radians(),
             100.,
-            Color::BISQUE,
+            Color::srgb(1., 0.894, 0.769), // Bisque
         )
-        .segments(360 * 3);
+        .resolution(360 * 3);
 
-    // minutes
+    // Minutes
     gizmos
         .arc_2d(
             Vec2::ZERO,
             minute_angle.to_radians() / 2.0,
             minute_angle.to_radians(),
             120.,
-            Color::TEAL,
+            Color::srgb(0., 0.5, 0.5), // Teal
         )
-        .segments(360 * 3);
+        .resolution(360 * 3);
 
-    // hour
+    // Hour
     gizmos
         .arc_2d(
             Vec2::ZERO,
             hour_angle.to_radians() / 2.0,
             hour_angle.to_radians(),
             140.,
-            Color::ORANGE,
+            Color::srgb(1., 0.647, 0.), // Orange
         )
-        .segments(360 * 3);
+        .resolution(360 * 3);
 }
