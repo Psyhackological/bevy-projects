@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::schedule::InGameSet;
+use crate::{schedule::InGameSet, spaceship::SpaceshipMissile};
 
 pub struct DebugPlugin;
 
@@ -10,7 +10,7 @@ impl Plugin for DebugPlugin {
     }
 }
 
-fn print_position(query: Query<(Entity, &Transform)>) {
+fn print_position(query: Query<(Entity, &Transform), With<SpaceshipMissile>>) {
     // Log the entity ID and translation of each entity with a `Position` component.
     for (entity, transform) in query.iter() {
         info!(

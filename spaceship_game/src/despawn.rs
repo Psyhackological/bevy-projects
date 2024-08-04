@@ -5,7 +5,7 @@ use crate::schedule::InGameSet;
 use crate::spaceship::Spaceship;
 use crate::state::GameState;
 
-const DESPAWN_DISTANCE: f32 = 100.;
+const DESPAWN_DISTANCE: f32 = 80.;
 
 pub struct DespawnPlugin;
 
