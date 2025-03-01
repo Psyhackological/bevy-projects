@@ -51,16 +51,17 @@ fn spawn_asteroid(
     }
 
     // We need to bring in the rand crate
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
     let translation = Vec3::new(
-        rng.gen_range(SPAWN_RANGE_X),
+        rng.random_range(SPAWN_RANGE_X),
         0.,
-        rng.gen_range(SPAWN_RANGE_Z),
+        rng.random_range(SPAWN_RANGE_Z),
     );
 
-    let mut random_unit_vector =
-        || Vec3::new(rng.gen_range(-1.0..1.), 0., rng.gen_range(-1.0..1.)).normalize_or_zero();
+    let mut random_unit_vector = || {
+        Vec3::new(rng.random_range(-1.0..1.), 0., rng.random_range(-1.0..1.)).normalize_or_zero()
+    };
 
     let velocity = random_unit_vector() * VELOCITY_SCALAR;
     let acceleration = random_unit_vector() * ACCELERATION_SCALAR;
