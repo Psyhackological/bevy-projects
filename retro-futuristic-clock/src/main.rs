@@ -10,7 +10,7 @@ fn main() {
 }
 
 fn setup(mut commands: Commands, mut config_store: ResMut<GizmoConfigStore>) {
-    commands.spawn(Camera2dBundle::default());
+    commands.spawn(Camera2d::default());
 
     let (default_config, _) = config_store.config_mut::<DefaultGizmoConfigGroup>();
     default_config.line_width = 20.0;
@@ -30,8 +30,10 @@ fn clock_face(mut gizmos: Gizmos) {
     // Seconds
     gizmos
         .arc_2d(
-            Vec2::ZERO,
-            second_angle.to_radians() / 2.0,
+            Isometry2d::new(
+                Vec2::ZERO,
+                Rot2::radians(second_angle.to_radians() / 2.0 + second_angle.to_radians() * 0.5),
+            ),
             second_angle.to_radians(),
             100.,
             Color::srgb(1., 0.894, 0.769), // Bisque
@@ -41,8 +43,10 @@ fn clock_face(mut gizmos: Gizmos) {
     // Minutes
     gizmos
         .arc_2d(
-            Vec2::ZERO,
-            minute_angle.to_radians() / 2.0,
+            Isometry2d::new(
+                Vec2::ZERO,
+                Rot2::radians(minute_angle.to_radians() / 2.0 + minute_angle.to_radians() * 0.5),
+            ),
             minute_angle.to_radians(),
             120.,
             Color::srgb(0., 0.5, 0.5), // Teal
@@ -52,8 +56,10 @@ fn clock_face(mut gizmos: Gizmos) {
     // Hour
     gizmos
         .arc_2d(
-            Vec2::ZERO,
-            hour_angle.to_radians() / 2.0,
+            Isometry2d::new(
+                Vec2::ZERO,
+                Rot2::radians(hour_angle.to_radians() / 2.0 + hour_angle.to_radians() * 0.5),
+            ),
             hour_angle.to_radians(),
             140.,
             Color::srgb(1., 0.647, 0.), // Orange
