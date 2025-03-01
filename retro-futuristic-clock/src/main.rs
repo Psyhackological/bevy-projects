@@ -10,7 +10,7 @@ fn main() {
 }
 
 fn setup(mut commands: Commands, mut config_store: ResMut<GizmoConfigStore>) {
-    commands.spawn(Camera2d::default());
+    commands.spawn(Camera2d);
 
     let (default_config, _) = config_store.config_mut::<DefaultGizmoConfigGroup>();
     default_config.line_width = 20.0;
