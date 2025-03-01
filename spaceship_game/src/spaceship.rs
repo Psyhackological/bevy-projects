@@ -51,15 +51,12 @@ impl Plugin for SpaceshipPlugin {
 
 fn spawn_spaceship(mut commands: Commands, scene_assets: Res<SceneAssets>) {
     commands.spawn((
+        SceneRoot(scene_assets.spaceship.clone()),
+        Transform::from_translation(STARTING_TRANSLATION),
         MovingObjectBundle {
             velocity: Velocity::new(Vec3::ZERO),
             acceleration: Acceleration::new(Vec3::ZERO),
             collider: Collider::new(SPACESHIP_RADIUS),
-            model: SceneBundle {
-                scene: scene_assets.spaceship.clone(),
-                transform: Transform::from_translation(STARTING_TRANSLATION),
-                ..default()
-            },
         },
         Spaceship,
         Health::new(SPACESHIP_HEALTH),
@@ -80,9 +77,9 @@ fn spaceship_movement_controls(
     let mut movement = 0.;
 
     if keyboard_input.pressed(KeyCode::KeyD) {
-        rotation = -SPACESHIP_ROTATION_SPEED * time.delta_seconds();
+        rotation = -SPACESHIP_ROTATION_SPEED * time.delta_secs();
     } else if keyboard_input.pressed(KeyCode::KeyA) {
-        rotation = SPACESHIP_ROTATION_SPEED * time.delta_seconds();
+        rotation = SPACESHIP_ROTATION_SPEED * time.delta_secs();
     }
 
     if keyboard_input.pressed(KeyCode::KeyS) {
@@ -92,9 +89,9 @@ fn spaceship_movement_controls(
     }
 
     if keyboard_input.pressed(KeyCode::ShiftLeft) {
-        roll = -SPACESHIP_ROLL_SPEED * time.delta_seconds();
+        roll = -SPACESHIP_ROLL_SPEED * time.delta_secs();
     } else if keyboard_input.pressed(KeyCode::ControlLeft) {
-        roll = SPACESHIP_ROLL_SPEED * time.delta_seconds();
+        roll = SPACESHIP_ROLL_SPEED * time.delta_secs();
     }
 
     // Rotate around the Y-axis
@@ -120,17 +117,14 @@ fn spaceship_weapon_controls(
     };
     if keyboard_input.pressed(KeyCode::Space) {
         commands.spawn((
+            SceneRoot(scene_assets.missiles.clone()),
+            Transform::from_translation(
+                transform.translation + -transform.forward() * MISSILE_FORWARD_SPAWN_SCALAR,
+            ),
             MovingObjectBundle {
                 velocity: Velocity::new(-transform.forward() * MISSILE_SPEED),
                 acceleration: Acceleration::new(Vec3::ZERO),
                 collider: Collider::new(MISSILE_RADIUS),
-                model: SceneBundle {
-                    scene: scene_assets.missiles.clone(),
-                    transform: Transform::from_translation(
-                        transform.translation + -transform.forward() * MISSILE_FORWARD_SPAWN_SCALAR,
-                    ),
-                    ..default()
-                },
             },
             SpaceshipMissile,
             Health::new(MISSILE_HEALTH),

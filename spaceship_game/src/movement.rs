@@ -30,7 +30,6 @@ pub struct MovingObjectBundle {
     pub velocity: Velocity,
     pub acceleration: Acceleration,
     pub collider: Collider,
-    pub model: SceneBundle,
 }
 
 pub struct MovementPlugin;
@@ -48,12 +47,12 @@ impl Plugin for MovementPlugin {
 
 fn update_velocity(mut query: Query<(&Acceleration, &mut Velocity)>, time: Res<Time>) {
     for (acceleration, mut velocity) in query.iter_mut() {
-        velocity.value += acceleration.value * time.delta_seconds();
+        velocity.value += acceleration.value * time.delta_secs();
     }
 }
 
 fn update_position(mut query: Query<(&Velocity, &mut Transform)>, time: Res<Time>) {
     for (velocity, mut transform) in query.iter_mut() {
-        transform.translation += velocity.value * time.delta_seconds();
+        transform.translation += velocity.value * time.delta_secs();
     }
 }

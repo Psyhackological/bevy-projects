@@ -66,15 +66,12 @@ fn spawn_asteroid(
     let acceleration = random_unit_vector() * ACCELERATION_SCALAR;
 
     commands.spawn((
+        SceneRoot(scene_assets.asteroid.clone()),
+        Transform::from_translation(translation),
         MovingObjectBundle {
             velocity: Velocity::new(velocity),
             acceleration: Acceleration::new(acceleration),
             collider: Collider::new(RADIUS),
-            model: SceneBundle {
-                scene: scene_assets.asteroid.clone(),
-                transform: Transform::from_translation(translation),
-                ..default()
-            },
         },
         Asteroid,
         Health::new(HEALTH),
@@ -84,6 +81,6 @@ fn spawn_asteroid(
 
 fn rotate_asteroid(mut query: Query<&mut Transform, With<Asteroid>>, time: Res<Time>) {
     for mut transform in query.iter_mut() {
-        transform.rotate_local_y(ROTATE_SPEED * time.delta_seconds());
+        transform.rotate_local_y(ROTATE_SPEED * time.delta_secs());
     }
 }
