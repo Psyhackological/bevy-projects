@@ -1,9 +1,9 @@
-use bevy::{prelude::*, utils::HashMap};
-
 use crate::asteroids::Asteroid;
 use crate::health::Health;
 use crate::schedule::InGameSet;
 use crate::spaceship::{Spaceship, SpaceshipMissile};
+use bevy::prelude::*;
+use bevy_platform::collections::hash_map::HashMap;
 
 #[derive(Component, Debug)]
 pub struct Collider {
@@ -84,7 +84,7 @@ fn collision_detection(mut query: Query<(Entity, &GlobalTransform, &mut Collider
                 if distance < collider_a.radius + collider_b.radius {
                     colliding_entities
                         .entry(entity_a)
-                        .or_insert_with(Vec::new)
+                        .or_default()
                         .push(entity_b)
                 }
             }
@@ -114,7 +114,7 @@ fn handle_collisions<T: Component>(
             }
 
             // Send collision event
-            collision_event_writer.send(CollisionEvent::new(entity, collided_entity));
+            collision_event_writer.write(CollisionEvent::new(entity, collided_entity));
         }
     }
 }

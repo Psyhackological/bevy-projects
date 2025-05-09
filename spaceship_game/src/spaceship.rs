@@ -69,7 +69,7 @@ fn spaceship_movement_controls(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     time: Res<Time>,
 ) {
-    let Ok((mut transform, mut velocity)) = query.get_single_mut() else {
+    let Ok((mut transform, mut velocity)) = query.single_mut() else {
         return;
     };
     let mut rotation = 0.;
@@ -112,7 +112,7 @@ fn spaceship_weapon_controls(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     scene_assets: Res<SceneAssets>,
 ) {
-    let Ok(transform) = query.get_single() else {
+    let Ok(transform) = query.single() else {
         return;
     };
     if keyboard_input.pressed(KeyCode::Space) {
@@ -138,7 +138,7 @@ fn spaceship_shield_controls(
     query: Query<Entity, With<Spaceship>>,
     keyboard_input: Res<ButtonInput<KeyCode>>,
 ) {
-    let Ok(spaceship) = query.get_single() else {
+    let Ok(spaceship) = query.single() else {
         return;
     };
 
@@ -151,7 +151,7 @@ fn spaceship_destroyed(
     mut next_state: ResMut<NextState<GameState>>,
     query: Query<(), With<Spaceship>>,
 ) {
-    if query.get_single().is_err() {
+    if query.single().is_err() {
         next_state.set(GameState::GameOver);
     }
 }

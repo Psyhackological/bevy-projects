@@ -30,6 +30,7 @@ fn main() {
         .insert_resource(AmbientLight {
             color: Color::default(),
             brightness: 750.0,
+            affects_lightmapped_meshes: true,
         })
         .add_plugins(DefaultPlugins)
         // User defined plugins.

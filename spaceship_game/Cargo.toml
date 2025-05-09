@@ -1,11 +1,12 @@
 [package]
 name = "spaceship_game"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2024"
 
 [dependencies]
-bevy = "0.15"
-rand = "0.9.0"
+bevy = "0.16"
+bevy_platform = "0.16.0"
+rand = "0.9.1"
 
 # Enable a small amount of optimization in debug mode
 [profile.dev]

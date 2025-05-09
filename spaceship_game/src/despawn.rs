@@ -28,7 +28,7 @@ fn despawn_far_away_entities(
 
         // Entity is far away from the camera's viewport (i.e. origin)
         if distance > DESPAWN_DISTANCE {
-            commands.entity(entity).despawn_recursive();
+            commands.entity(entity).despawn();
         }
     }
 }
@@ -37,13 +37,13 @@ fn despawn_dead_entities(mut commands: Commands, query: Query<(Entity, &Health)>
     for (entity, health) in query.iter() {
         // Entity doesn't have any health
         if health.value <= 0. {
-            commands.entity(entity).despawn_recursive();
+            commands.entity(entity).despawn();
         }
     }
 }
 
 fn despawn_all_entities(mut commands: Commands, query: Query<Entity, With<Health>>) {
     for entity in query.iter() {
-        commands.entity(entity).despawn_recursive();
+        commands.entity(entity).despawn();
     }
 }
